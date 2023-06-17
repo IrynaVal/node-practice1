@@ -1,4 +1,5 @@
 const express = require("express");
+const { auth } = require("../middlewares/auth");
 const {
   createUserValidationSchema,
   loginValidationSchema,
@@ -9,7 +10,7 @@ const { signup, login, logout } = require("../controllers/authControllers");
 const router = express.Router();
 router.post("/signup", validateBody(createUserValidationSchema), signup);
 router.post("/login", validateBody(loginValidationSchema), login);
-router.post("/logout", logout);
+router.post("/logout", auth, logout);
 
 module.exports = {
   authRouter: router,
